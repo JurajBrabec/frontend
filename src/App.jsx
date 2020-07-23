@@ -1,11 +1,13 @@
-import { h } from 'preact';
+import { h, Component } from 'preact';
 import logo from './logo.png';
 import './App.css';
+import Title from './components/Title.jsx';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <Title />
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.jsx</code> and save to reload.
