@@ -7,6 +7,7 @@
     "lint": "prettier --check \"src/**/*.{js,jsx}\""
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "bootstrap": "^4.5.1",
     "jquery": "^3.5.1",
     "preact": "^10.4.1",

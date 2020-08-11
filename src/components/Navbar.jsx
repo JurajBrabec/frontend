@@ -1,9 +1,21 @@
 import { h } from 'preact';
 import ComboBox from './ComboBox.jsx';
+import Menu from './Menu.jsx';
 
-export default function Navbar({ customer, timePeriod, tower }) {
+export default function Navbar({ reports, tower, customer, timePeriod }) {
+  const categories = [
+    ...new Set(reports.data.map((report) => report.category)),
+  ];
+  const link = (text, href = '') => (
+    <li class="nav-item">
+      <a class="nav-link" href={href}>
+        {text}
+      </a>
+    </li>
+  );
+
   return (
-    <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="/">
         MARS
       </a>
@@ -20,51 +32,19 @@ export default function Navbar({ customer, timePeriod, tower }) {
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">
-              Home <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              Reload
-            </a>
-          </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Reports
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">
-                Report 1
-              </a>
-              <a class="dropdown-item" href="#">
-                Report 2
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">
-                Report 3
-              </a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link disabled"
-              href="#"
-              tabindex="-1"
-              aria-disabled="true"
-            >
-              Disabled
-            </a>
-          </li>
+          {link('Home', '#')}
+          {link('Reload')}
+          {categories.map((category) =>
+            category ? (
+              <Menu
+                name={category}
+                items={reports.data.filter(
+                  (report) => report.category === category,
+                )}
+                onClick={reports.onClick}
+              />
+            ) : null,
+          )}
         </ul>
         <form class="form-inline my-2 my-lg-0">
           <ComboBox
@@ -86,13 +66,7 @@ export default function Navbar({ customer, timePeriod, tower }) {
             onChange={timePeriod.onChange}
           />
         </form>
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="/admin">
-              Admin
-            </a>
-          </li>
-        </ul>
+        <ul class="navbar-nav">{link('Admin', '/admin')}</ul>
       </div>
     </nav>
   );
