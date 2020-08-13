@@ -1,6 +1,5 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
-import axios from 'axios';
 import config from './assets/get-config';
 import Footer from './components/Footer.jsx';
 import Navbar from './components/Navbar.jsx';

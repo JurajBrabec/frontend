@@ -1,3 +1,6 @@
+import axios from 'axios';
+//import axios from 'axios';
+
 export default {
   root: 'M:\\MARS\\',
   towers: [{ name: 'All towers' }],

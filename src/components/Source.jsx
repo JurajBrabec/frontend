@@ -21,7 +21,7 @@ export default function Source({ source, setSource }) {
         </h4>
       </div>
       <div class="card-body">
-        <div class="card-title"></div>
+        <div class="card-title">{source.description}</div>
         <div className="card-text">
           <pre>{JSON.stringify(source)}</pre>
         </div>

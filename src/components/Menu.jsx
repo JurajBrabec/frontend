@@ -1,7 +1,7 @@
 import { h } from 'preact';
 
 export default function Menu({ name, items, onClick }) {
-  const divider = () => <div className="dropdown-divider"></div>;
+  const menuDivider = () => <div className="dropdown-divider"></div>;
   const menuItem = ({ name, title }) => (
     <a name={name} class="dropdown-item" href="" onClick={onClick}>
       {title}
@@ -23,7 +23,7 @@ export default function Menu({ name, items, onClick }) {
       </a>
       <div class="dropdown-menu" aria-labelledby={id}>
         {items.map((item) =>
-          item.name === '---' ? divider() : menuItem(item),
+          item.name === '---' ? menuDivider() : menuItem(item),
         )}
       </div>
     </li>
