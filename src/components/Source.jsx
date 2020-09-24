@@ -64,7 +64,7 @@ export default function Source({ source, setSource }) {
             ))}
             <button
               type="button"
-              class="btn btn-sm btn-success"
+              class="btn btn-sm btn-info"
               onClick={() => setFilters((filters) => [...filters, newFilter])}
             >
               +Filter

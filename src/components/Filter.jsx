@@ -1,4 +1,4 @@
-import { h, Fragment } from 'preact';
+import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import ComboBox from './ComboBox.jsx';
 import Input from './Input.jsx';
@@ -6,10 +6,10 @@ import Input from './Input.jsx';
 export default function Filter({ filter, updateFilter, fields, operators }) {
   const [editable, setEditable] = useState(false);
   return (
-    <div class="d-flex flex-row align-items-center">
+    <div class="d-flex flex-row align-items-center py-0 px-1">
       {editable ? (
-        <Fragment>
-          <span class="badge badge-primary">
+        <div class="input-group input-group-sm align-items-center bg-success py-1">
+          <div class="input-group-prepend mx-1">
             <ComboBox
               data={fields}
               selected={filter.field}
@@ -17,8 +17,7 @@ export default function Filter({ filter, updateFilter, fields, operators }) {
                 updateFilter({ ...filter, ...{ field: value } })
               }
             />
-          </span>
-          <span class="badge badge-dark">
+            <span>&nbsp;</span>
             <ComboBox
               data={operators}
               selected={filter.operator}
@@ -26,41 +25,56 @@ export default function Filter({ filter, updateFilter, fields, operators }) {
                 updateFilter({ ...filter, ...{ operator: value } })
               }
             />
-          </span>
-          <span class="badge badge-info">
-            <Input
-              value={filter.value}
-              onChange={(value) => updateFilter({ ...filter, ...{ value } })}
-            />
-          </span>
+          </div>
+          <Input
+            value={filter.value}
+            onChange={(value) => updateFilter({ ...filter, ...{ value } })}
+          />
+          <div class="input-group-append">
+            <button
+              type="submit"
+              class="btn btn-success"
+              onClick={(e) => {
+                e.stopPropagation();
+                setEditable(false);
+              }}
+            >
+              <span>&radic;</span>
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div class="btn-group p-1 btn-group-sm">
           <button
             type="button"
-            class="btn btn-sm btn-success"
+            class="btn btn-light"
             onClick={(e) => {
               e.stopPropagation();
-              setEditable(false);
+              setEditable(true);
             }}
           >
-            Confirm
+            <span>
+              {fields.map((f) => (f.value === filter.field ? f.name : ''))}
+              &nbsp;
+            </span>
+            <span>
+              {operators.map((o) =>
+                o.value === filter.operator ? o.name : '',
+              )}
+            </span>
+            &nbsp;{`'${filter.value}'`}&nbsp;
           </button>
           <button
             type="button"
-            class="btn btn-sm btn-danger"
-            onClick={() => updateFilter()}
+            class="btn btn-dark"
+            onClick={(e) => {
+              e.stopPropagation();
+              updateFilter();
+            }}
           >
-            Remove
+            <span>&times;</span>
           </button>
-        </Fragment>
-      ) : (
-        <button
-          type="button"
-          class="btn btn-light btn-sm"
-          onClick={() => setEditable(true)}
-        >
-          <span class="badge badge-primary">{filter.field}</span>
-          <span class="badge badge-dark">{filter.operator}</span>
-          <span class="badge badge-info">{`"${filter.value}"`}</span>
-        </button>
+        </div>
       )}
     </div>
   );
