@@ -17,8 +17,10 @@ export default function ComboBox({ name, data, selected, onChange }) {
         value={selected}
         onChange={setValue}
       >
-        {data.map((value) => (
-          <option value={value.value}>{value.name}</option>
+        {data.map((value, index) => (
+          <option key={index} value={value.value}>
+            {value.name}
+          </option>
         ))}
       </select>
     </div>
