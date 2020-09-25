@@ -1,9 +1,8 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import ComboBox from './ComboBox.jsx';
-import Input from './Input.jsx';
 
-export default function Filter({ filter, updateFilter, fields, operators }) {
+export default function Sort({ sort, updateSort, fields, orders }) {
   const [editable, setEditable] = useState(false);
   return (
     <div class="d-flex flex-row align-items-center pr-1">
@@ -11,21 +10,13 @@ export default function Filter({ filter, updateFilter, fields, operators }) {
         <div class="input-group input-group-sm border-success">
           <ComboBox
             data={fields}
-            selected={filter.field}
-            onChange={(value) =>
-              updateFilter({ ...filter, ...{ field: value } })
-            }
+            selected={sort.field}
+            onChange={(value) => updateSort({ ...sort, ...{ field: value } })}
           />
           <ComboBox
-            data={operators}
-            selected={filter.operator}
-            onChange={(value) =>
-              updateFilter({ ...filter, ...{ operator: value } })
-            }
-          />
-          <Input
-            value={filter.value}
-            onChange={(value) => updateFilter({ ...filter, ...{ value } })}
+            data={orders}
+            selected={sort.order}
+            onChange={(value) => updateSort({ ...sort, ...{ order: value } })}
           />
           <div class="input-group-append">
             <button
@@ -51,22 +42,19 @@ export default function Filter({ filter, updateFilter, fields, operators }) {
             }}
           >
             <span>
-              {fields.map((f) => (f.value === filter.field ? f.name : ''))}
+              {fields.map((f) => (f.value === sort.field ? f.name : ''))}
               &nbsp;
             </span>
             <span>
-              {operators.map((o) =>
-                o.value === filter.operator ? o.name : '',
-              )}
+              {orders.map((o) => (o.value === sort.order ? o.name : ''))}
             </span>
-            &nbsp;{`'${filter.value}'`}&nbsp;
           </button>
           <button
             type="button"
             class="btn btn-secondary"
             onClick={(e) => {
               e.stopPropagation();
-              updateFilter();
+              updateSort();
             }}
           >
             <span>&#10005;</span>

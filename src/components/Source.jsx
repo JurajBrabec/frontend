@@ -1,6 +1,7 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import Filter from './Filter.jsx';
+import Sort from './Sort.jsx';
 
 export default function Source({ source, setSource }) {
   const changeSource = (newSource) => {
@@ -39,6 +40,19 @@ export default function Source({ source, setSource }) {
         : filters.filter((filter, i) => i !== index),
     );
   };
+  const [sorts, setSorts] = useState(source.sorts);
+  const [newSort, setNewSort] = useState({
+    field: fields[0].value,
+    order: orders[0].value,
+  });
+  const updateSort = (index, updatedSort) => {
+    setNewSort(updatedSort ? updatedSort : sorts[index]);
+    setSorts((sorts) =>
+      updatedSort
+        ? sorts.map((sort, i) => (i === index ? updatedSort : sort))
+        : sorts.filter((sort, i) => i !== index),
+    );
+  };
   return (
     <div class="card mb-3">
       <div class="card-header">
@@ -50,9 +64,12 @@ export default function Source({ source, setSource }) {
         </h5>
       </div>
       <div class="card-body">
-        <div class="card-subtitle">{source.description}</div>
-        <div class="card-text">
+        <div class="card-subtitle">
           <div class="d-flex flex-row align-items-center">
+            <span class="btn-sm">
+              {source.description}
+              {filters.length ? ', where' : ''}
+            </span>
             {filters.map((filter, index) => (
               <Filter
                 key={index}
@@ -64,15 +81,35 @@ export default function Source({ source, setSource }) {
             ))}
             <button
               type="button"
-              class="btn btn-sm btn-info"
+              class="btn btn-sm btn-outline-info"
               onClick={() => setFilters((filters) => [...filters, newFilter])}
             >
               +Filter
             </button>
+            <span class="btn-sm">{sorts.length ? ', ordered by' : ''}</span>
+            {sorts.map((sort, index) => (
+              <Sort
+                key={index}
+                sort={sort}
+                updateSort={(sort) => updateSort(index, sort)}
+                fields={fields}
+                orders={orders}
+              />
+            ))}
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-info"
+              onClick={() => setSorts((sorts) => [...sorts, newSort])}
+            >
+              +Sort
+            </button>
           </div>
         </div>
         <div class="card-text">
-          <pre>{JSON.stringify(filters)}</pre>
+          <pre>
+            {JSON.stringify(filters)}
+            {JSON.stringify(sorts)}
+          </pre>
         </div>
         <button
           type="button"

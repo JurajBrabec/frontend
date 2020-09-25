@@ -11449,6 +11449,5 @@ export default {
     SMTP_FROM: 'MARS reports',
   },
   build: '4.1.29',
-  copyright:
-    'MARS </strong> © 2015 - 2020 Juraj Brabec, DXC Technology Company </a></strong>. Prepared on August 11, 2020, 12:17 </strong> (Europe/Bratislava)</span>HTML5 </strong> | CSS3 </strong> | JavaScript </strong> | JQuery </a></strong> | JQueryUI </a></strong> | Bootstrap </a></strong> | PHP 7.2.29</a></strong> | MariaDB 10.3.21</a></strong> | Apache 2.4.43</a></strong></span>',
+  copyright: 'MARS © 2015 - 2020 Juraj Brabec, DXC Technology Company.',
 };

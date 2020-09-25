@@ -2,9 +2,18 @@ import { h } from 'preact';
 import ComboBox from './ComboBox.jsx';
 import Menu from './Menu.jsx';
 
-export default function Navbar({ reports, tower, customer, timePeriod }) {
+export default function Navbar({
+  config,
+  reportOnClick,
+  tower,
+  setTower,
+  customer,
+  setCustomer,
+  timePeriod,
+  setTimePeriod,
+}) {
   const categories = [
-    ...new Set(reports.data.map((report) => report.category)),
+    ...new Set(config.reports.map((report) => report.category)),
   ];
   const link = (text, href = '') => (
     <li class="nav-item">
@@ -15,59 +24,54 @@ export default function Navbar({ reports, tower, customer, timePeriod }) {
   );
 
   return (
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar fixed-top navbar-expand navbar-dark bg-dark p-1">
       <a class="navbar-brand" href="/">
         MARS
       </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarContent"
-        aria-controls="navbarContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarContent">
-        <ul class="navbar-nav mr-auto">
-          {link('Home', '#')}
-          {link('Reload')}
-          {categories.map((category) =>
-            category ? (
-              <Menu
-                name={category}
-                items={reports.data.filter(
-                  (report) => report.category === category,
-                )}
-                onClick={reports.onClick}
-              />
-            ) : null,
-          )}
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
+      <ul class="navbar-nav mr-auto">
+        {link('Home', '#')}
+        {link('Reload')}
+        {categories.map((category) =>
+          category ? (
+            <Menu
+              name={category}
+              items={config.reports.filter(
+                (report) => report.category === category,
+              )}
+              onClick={reportOnClick}
+            />
+          ) : null,
+        )}
+      </ul>
+      <form class="form-inline">
+        <div class="input-group input-group-sm">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Tower</span>
+          </div>
+          <ComboBox data={config.towers} selected={tower} onChange={setTower} />
+        </div>
+        <div class="input-group input-group-sm mx-1">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Customer</span>
+          </div>
           <ComboBox
-            name="Tower"
-            data={tower.data}
-            selected={tower.selected}
-            onChange={tower.onChange}
+            data={config.customers}
+            selected={customer}
+            onChange={setCustomer}
           />
+        </div>
+        <div class="input-group input-group-sm">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Time</span>
+          </div>
           <ComboBox
-            name="Customer"
-            data={customer.data}
-            selected={customer.selected}
-            onChange={customer.onChange}
+            data={config.timeperiods}
+            selected={timePeriod}
+            onChange={setTimePeriod}
           />
-          <ComboBox
-            name="Time"
-            data={timePeriod.data}
-            selected={timePeriod.selected}
-            onChange={timePeriod.onChange}
-          />
-        </form>
-        <ul class="navbar-nav">{link('Admin', '/admin')}</ul>
-      </div>
+        </div>
+      </form>
+      <ul class="navbar-nav">{link('Admin', '/admin')}</ul>
     </nav>
   );
 }
