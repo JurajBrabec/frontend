@@ -1,11 +1,13 @@
 import { h } from 'preact';
-import { useState } from 'preact/hooks';
-import config from './assets/get-config';
+import { useState, useEffect } from 'preact/hooks';
+import axios from 'axios';
+import defaultConfig from './assets/get-config';
 import Footer from './components/Footer.jsx';
 import Navbar from './components/Navbar.jsx';
 import Sources from './components/Sources.jsx';
 
 function App() {
+  const [config, setConfig] = useState(defaultConfig);
   const [tower, setTower] = useState(config.towers[0].value);
   const towerData = {
     data: config.towers,
@@ -56,6 +58,19 @@ function App() {
       setSources((sources) => [...sources, ...addSources]);
     },
   };
+  useEffect(() => {
+    const url = 'http://localhost/nbu/php.php?action=get-config';
+    axios.get(url).then(
+      (response) => {
+        console.log('Config set');
+        setConfig(response.data);
+      },
+      (error) => {
+        console.log('Config NOT set');
+        console.log(error);
+      },
+    );
+  }, []);
   return (
     <div class="container-fluid px-0">
       <Navbar
