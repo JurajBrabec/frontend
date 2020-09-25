@@ -55,8 +55,7 @@ function App() {
         setTimePeriod(response.data.timeperiods[0].value);
       },
       (error) => {
-        console.log('Config NOT set');
-        console.log(error);
+        console.log('Config NOT set', error);
         setConfig(defaultConfig);
         setTimePeriod(defaultConfig.timeperiods[0].value);
       },

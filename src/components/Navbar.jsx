@@ -12,6 +12,7 @@ export default function Navbar({
   timePeriod,
   setTimePeriod,
 }) {
+  console.log(config);
   const categories = [
     ...new Set(config.reports.map((report) => report.category)),
   ];
