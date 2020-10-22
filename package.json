@@ -1,5 +1,5 @@
 {
-  "homepage": ".",
+  "homepage": "/frontend",
   "scripts": {
     "start": "snowpack dev",
     "build": "snowpack build",

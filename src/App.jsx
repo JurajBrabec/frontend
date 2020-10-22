@@ -47,7 +47,7 @@ function App() {
     setSources((sources) => [...sources, ...addSources]);
   };
   useEffect(() => {
-    const url = 'http://localhost/nbu/php.php?action=get-config';
+    const url = '/nbu/php.php?action=get-config';
     axios.get(url).then(
       (response) => {
         console.log('Config set');
