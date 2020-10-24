@@ -1,4 +1,4 @@
-export default {
+{
   root: 'M:\\MARS\\',
   towers: [{ name: 'All towers', value: '' }, { name: 'Tower 1' }],
   customers: [{ name: 'All customers', value: '' }, { name: 'Customer 1' }],
@@ -11450,4 +11450,4 @@ export default {
   },
   build: '4.1.29',
   copyright: 'MARS © 2015 - 2020 Juraj Brabec, DXC Technology Company.',
-};
+}

@@ -52,11 +52,15 @@ function App() {
       (response) => {
         console.log('Config set');
         setConfig(response.data);
+        setTower(response.data.towers[0].value);
+        setCustomer(response.data.customers[0].value);
         setTimePeriod(response.data.timeperiods[0].value);
       },
       (error) => {
         console.log('Config NOT set', error);
         setConfig(defaultConfig);
+        setTower(defaultConfig.towers[0].name);
+        setCustomer(defaultConfig.customers[0].name);
         setTimePeriod(defaultConfig.timeperiods[0].value);
       },
     );

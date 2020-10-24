@@ -5,7 +5,7 @@ export default function ComboBox({ data, selected, onChange }) {
   return (
     <select class="custom-select" value={selected} onChange={setValue}>
       {data.map((value, index) => (
-        <option key={index} value={value.value}>
+        <option key={index} value={value.value || value.name}>
           {value.name}
         </option>
       ))}
