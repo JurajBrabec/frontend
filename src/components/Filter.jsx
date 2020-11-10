@@ -4,7 +4,7 @@ import ComboBox from './ComboBox.jsx';
 import Input from './Input.jsx';
 
 export default function Filter({ filter, updateFilter, fields, operators }) {
-  const [editable, setEditable] = useState(false);
+  const [editable, setEditable] = useState(true);
   return (
     <div class="d-flex flex-row align-items-center pr-1">
       {editable ? (

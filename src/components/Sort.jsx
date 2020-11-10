@@ -3,7 +3,7 @@ import { useState } from 'preact/hooks';
 import ComboBox from './ComboBox.jsx';
 
 export default function Sort({ sort, updateSort, fields, orders }) {
-  const [editable, setEditable] = useState(false);
+  const [editable, setEditable] = useState(true);
   return (
     <div class="d-flex flex-row align-items-center pr-1">
       {editable ? (

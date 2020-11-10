@@ -47,10 +47,10 @@ function App() {
     setSources((sources) => [...sources, ...addSources]);
   };
   useEffect(() => {
-    const url = '/nbu/php.php?action=get-config';
+    //    const url = '/nbu/php.php?action=get-config';
+    const url = 'http://localhost:3000/api/config';
     axios.get(url).then(
       (response) => {
-        console.log('Config set');
         setConfig(response.data);
         setTower(response.data.towers[0].value);
         setCustomer(response.data.customers[0].value);
@@ -92,7 +92,13 @@ function App() {
             <div class="card-body">Reports: {sources.length}</div>
           </div>
         </div>
-        <Sources sources={sources} setSources={setSources} />
+        <Sources
+          sources={sources}
+          setSources={setSources}
+          tower={tower}
+          customer={customer}
+          timePeriod={timePeriod}
+        />
       </div>
       <Footer config={config} />
     </div>

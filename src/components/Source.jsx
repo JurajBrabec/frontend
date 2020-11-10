@@ -2,8 +2,15 @@ import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import Filter from './Filter.jsx';
 import Sort from './Sort.jsx';
+import Table from './Table.jsx';
 
-export default function Source({ source, setSource }) {
+export default function Source({
+  source,
+  setSource,
+  tower,
+  customer,
+  timePeriod,
+}) {
   const changeSource = (newSource) => {
     setSource({ ...source, ...newSource });
   };
@@ -106,10 +113,14 @@ export default function Source({ source, setSource }) {
           </div>
         </div>
         <div class="card-text">
-          <pre>
-            {JSON.stringify(filters)}
-            {JSON.stringify(sorts)}
-          </pre>
+          <Table
+            source={source}
+            filters={filters}
+            sorts={sorts}
+            customer={customer}
+            tower={tower}
+            timePeriod={timePeriod}
+          />
         </div>
         <button
           type="button"
