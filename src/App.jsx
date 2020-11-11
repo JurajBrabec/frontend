@@ -48,7 +48,7 @@ function App() {
   };
   useEffect(() => {
     //    const url = '/nbu/php.php?action=get-config';
-    const url = 'http://localhost:3000/api/config';
+    const url = '/api/config';
     axios.get(url).then(
       (response) => {
         setConfig(response.data);
