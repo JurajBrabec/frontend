@@ -12,7 +12,7 @@ export default function Table({
 }) {
   const [html, setHtml] = useState('table');
   useEffect(() => {
-    const url = `/api/v1/${source.name}?mode=html`; //&tower=${tower}&customer=${customer}`;
+    const url = `/api/v1/${source.name}`; //?mode=html&tower=${tower}&customer=${customer}`;
     axios.get(url).then(
       (response) => {
         console.log('Table read');
